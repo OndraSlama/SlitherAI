@@ -1,6 +1,6 @@
 from Constants import *
 import random
-import pygame.math as math
+import pygame.math as gameMath
 class World:
     def __init__(self, game):
         self.game = game
@@ -26,27 +26,37 @@ class World:
             for region in self.regions:
                 region.CheckFood()
 
+    def RespawnFood(self):
+        self.food = []
+        for region in self.regions:
+            region.food = []
+            region.CreateFood(random.randrange(round(foodInRegion*0.8), round(foodInRegion*1.2), 1))
+
     def DropFood(self, x, y, nutritions):
-        self.food.append(Food(None, x, y, nutritions))
+        for region in self.regions:            
+            if region.isInRegion(x, y, 0):
+                food = Food(region, x, y, nutritions)
+                self.food.append(food)  
+                region.food.append(food)              
 
 class Food:
     def __init__(self, region, x, y, nut):
         self.region = region
         self.nutritions = nut
-        self.position = math.Vector2(x, y)
+        self.position = gameMath.Vector2(x, y)
         
 
 class Region:
-    def __init__(self, world, regionPosition):
+    def __init__(self, world, position):
         self.world = world 
-        self.regionPosition = regionPosition
+        self.position = position
         self.food = []
-        self.CreateFood(random.randrange(round(foodInRegion*0.8), round(foodInRegion*1.2), 1))
-
+        self.CreateFood(random.randrange(round(foodInRegion*0.8), round(foodInRegion*1.2), 1))    
+    
     def CreateFood(self, noOfFood):
         for i in range(noOfFood):
-            foodXPos = random.randrange(round(self.regionPosition[0] * 100), round((self.regionPosition[0] + self.regionPosition[2])*100), 1)/100
-            foodYPos = random.randrange(round(self.regionPosition[1] * 100), round((self.regionPosition[1] + self.regionPosition[3])*100), 1)/100
+            foodXPos = random.randrange(round(self.position[0] * 100), round((self.position[0] + self.position[2])*100), 1)/100
+            foodYPos = random.randrange(round(self.position[1] * 100), round((self.position[1] + self.position[3])*100), 1)/100
             food = Food(self, foodXPos, foodYPos, random.randrange(round(foodNutritions*0.5), round(foodNutritions*1.5), 1))
             self.food.append(food)
             self.world.food.append(food)
@@ -54,4 +64,11 @@ class Region:
     def CheckFood(self):
         if len(self.food) < foodInRegion*0.8:
             self.CreateFood(random.randrange(1, round(foodInRegion*0.4), 1))
+
+    def isInRegion(self, x, y, rad):
+        if x + rad < self.position[0]: return False
+        if x - rad > self.position[0] + self.position[2]: return False
+        if y + rad < self.position[1]: return False
+        if y - rad > self.position[1] + self.position[3]: return False
+        return True
 
