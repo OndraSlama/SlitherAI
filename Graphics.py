@@ -124,23 +124,25 @@ class Graphics:
         self.ShowInfo(text, 30, WHITE, windowWidth*0.05, windowHeight*0.04)
         text = "GameSpeed: " + str(gameSpeed)
         self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.09)
-        text = "Generation: " + str(game.population.generation)
+        text = "Game time: " + str(round(game.time,1))
         self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.12)
+        text = "Generation: " + str(game.population.generation)
+        self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.15)
         try:
             text = "Best fitness of previous gen: " + str(round(game.population.bestPlayers[-1].absoluteFitness))
-            self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.15)
-            text = "Best fitness overall: " + str(round(game.population.globalBestPlayer.absoluteFitness))
             self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.18)
+            text = "Best fitness overall: " + str(round(game.population.globalBestPlayer.absoluteFitness))
+            self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.21)
         except:
             text = "Best fitness of previous gen: " + str(0)
-            self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.15)
-            text = "Best fitness overall: " + str(0)
             self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.18)
+            text = "Best fitness overall: " + str(0)
+            self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.21)
         
 
 
         if game.snakes[snakeInd].aiControlled:
-            text = "Snake fitness: " + str(round((game.snakes[snakeInd].length - snakeInitialLength) + game.snakes[snakeInd].traveled/10))
+            text = "Snake fitness: " + str(round((game.snakes[snakeInd].length - snakeInitialLength) * game.snakes[snakeInd].traveled/10))
             self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.83)
             text = "Snake length: " + str(round(game.snakes[snakeInd].length))
             self.ShowInfo(text, 20, WHITE, windowWidth*0.05, windowHeight*0.86)

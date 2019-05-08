@@ -85,7 +85,7 @@ while running:
         if keys[pygame.K_LEFT]: cameraPosition.x -= 1/zoom
         if keys[pygame.K_RIGHT]: cameraPosition.x += 1/zoom
         if keys[pygame.K_UP]: cameraPosition.y -= 1/zoom
-        if keys[pygame.K_DOWN]: cameraPosition.y += 1/zoom    
+        if keys[pygame.K_DOWN]: cameraPosition.y += 1/zoom     
     else:
         if keys[pygame.K_UP]: gameSpeed = min(gameSpeed + 1, maxGameSpeed)
         if keys[pygame.K_DOWN]: gameSpeed = max(gameSpeed - 1, minGameSpeed)
@@ -133,6 +133,8 @@ while running:
                 pygame.display.update()
                 graphics.ShowText("Neuroevoluting Slither", 70, RED, windowWidth/2, windowHeight*0.5)
                 menuScreen = False
+                if not game.isHumanPlayer:
+                    game.killSnake(game.snakes[0])
                 startGameTime = pygame.time.get_ticks()
             if keys[pygame.K_9]:
                 infoScreen = True

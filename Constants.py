@@ -13,7 +13,7 @@ minGameSpeed = 1
 showBotView = False
 
 regionSize = 200 #Region size in world units (side of the square)
-foodInRegion = 45 #Average number of food globes in region
+foodInRegion = 35 #Average number of food globes in region
 foodNutritions = 16 #Average nutrition per food globe
 resetFoodInterval = 30 #Every X second check of enough food
 numberOfSnakes = 20
@@ -30,7 +30,7 @@ numberOfBeams = 5
 numberOfSenses = 3
 beamLength = 40
 sideBeamAngle = 40
-senseLength = 50
+senseLength = 25
 
 # GA
 isHumanPlayer = True

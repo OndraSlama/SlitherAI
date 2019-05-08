@@ -28,7 +28,7 @@ class Population():
 
     def ComputeFitness(self):
         for player in self.players:
-            player.fitness = (player.gameEntity.length - snakeInitialLength) + player.gameEntity.traveled/10
+            player.fitness = (player.gameEntity.length - snakeInitialLength) * player.gameEntity.traveled/10
             player.absoluteFitness = player.fitness
 
     def Selection(self):
